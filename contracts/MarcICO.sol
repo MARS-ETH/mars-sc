@@ -7,27 +7,45 @@ import "@chainlink/contracts/src/v0.7/interfaces/AggregatorV3Interface.sol";
 import "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
 
 contract MarsICO is Ownable, ERC721Holder {
-
     MarsToken public marsToken;
 
     AggregatorV3Interface internal priceFeed;
 
     uint256 public price;
 
-    constructor(address _marsTokenAddress, address _priceFeedAddress, uint256 _price) {
+    constructor(
+        address _marsTokenAddress,
+        address _priceFeedAddress,
+        uint256 _price
+    ) {
         changeMarsTokenAddress(_marsTokenAddress);
         changePriceFeedAddress(_priceFeedAddress);
         changePrice(_price);
     }
 
-    function changeMarsTokenAddress(address _marsTokenAddress) public onlyOwner {
-        require(_marsTokenAddress != address(0), "MarsICO: mars token address must be valid");
+    function changeMarsTokenAddress(address _marsTokenAddress)
+        public
+        onlyOwner
+    {
+        require(
+            _marsTokenAddress != address(0),
+            "MarsICO: mars token address must be valid"
+        );
         marsToken = MarsToken(_marsTokenAddress);
-        require(marsToken.supportsInterface(0x80ac58cd), "MarsICO: mars token must be ERC721");
+        require(
+            marsToken.supportsInterface(0x80ac58cd),
+            "MarsICO: mars token must be ERC721"
+        );
     }
 
-    function changePriceFeedAddress(address _priceFeedAddress) public onlyOwner {
-        require(_priceFeedAddress != address(0), "MarsICO: price feed address must be valid");
+    function changePriceFeedAddress(address _priceFeedAddress)
+        public
+        onlyOwner
+    {
+        require(
+            _priceFeedAddress != address(0),
+            "MarsICO: price feed address must be valid"
+        );
         priceFeed = AggregatorV3Interface(_priceFeedAddress);
     }
 
@@ -36,8 +54,8 @@ contract MarsICO is Ownable, ERC721Holder {
         price = _price;
     }
 
-    function getLatestPrice() public view returns (int) {
-        (,int _price,,uint timeStamp,) = priceFeed.latestRoundData();
+    function getLatestPrice() public view returns (int256) {
+        (, int256 _price, , uint256 timeStamp, ) = priceFeed.latestRoundData();
         require(timeStamp > 0, "round not complete");
         return _price;
     }
