@@ -2036,7 +2036,14 @@
     "bignumber.js" "^9.0.1"
     "nofilter" "^1.0.4"
 
-"chai@^4.3.3":
+"chai-as-promised@^7.1.1":
+  "integrity" "sha512-azL6xMoi+uxu6z4rhWQ1jbdUhOMhis2PvscD/xjLqNMkv3BPPp2JyyuTHOrf9BOosGpNQ11v6BKv/g57RXbiaA=="
+  "resolved" "https://registry.npmjs.org/chai-as-promised/-/chai-as-promised-7.1.1.tgz"
+  "version" "7.1.1"
+  dependencies:
+    "check-error" "^1.0.2"
+
+"chai@^4.3.3", "chai@>= 2.1.2 < 5":
   "integrity" "sha512-MPSLOZwxxnA0DhLE84klnGPojWFK5KuhP7/j5dTsxpr2S3XlkqJP5WbyYl1gCTWvG2Z5N+HD4F472WsbEZL6Pw=="
   "resolved" "https://registry.npmjs.org/chai/-/chai-4.3.3.tgz"
   "version" "4.3.3"

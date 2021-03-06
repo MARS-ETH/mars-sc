@@ -13,39 +13,20 @@ contract MarsICO is Ownable, ERC721Holder {
 
     uint256 public price;
 
-    constructor(
-        address _marsTokenAddress,
-        address _priceFeedAddress,
-        uint256 _price
-    ) {
+    constructor(address _marsTokenAddress, address _priceFeedAddress, uint256 _price) {
         changeMarsTokenAddress(_marsTokenAddress);
         changePriceFeedAddress(_priceFeedAddress);
         changePrice(_price);
     }
 
-    function changeMarsTokenAddress(address _marsTokenAddress)
-        public
-        onlyOwner
-    {
-        require(
-            _marsTokenAddress != address(0),
-            "MarsICO: mars token address must be valid"
-        );
+    function changeMarsTokenAddress(address _marsTokenAddress) public onlyOwner {
+        require(_marsTokenAddress != address(0), "MarsICO: mars token address must be valid");
         marsToken = MarsToken(_marsTokenAddress);
-        require(
-            marsToken.supportsInterface(0x80ac58cd),
-            "MarsICO: mars token must be ERC721"
-        );
+        require(marsToken.supportsInterface(0x80ac58cd), "MarsICO: mars token must be ERC721");
     }
 
-    function changePriceFeedAddress(address _priceFeedAddress)
-        public
-        onlyOwner
-    {
-        require(
-            _priceFeedAddress != address(0),
-            "MarsICO: price feed address must be valid"
-        );
+    function changePriceFeedAddress(address _priceFeedAddress) public onlyOwner {
+        require(_priceFeedAddress != address(0), "MarsICO: price feed address must be valid");
         priceFeed = AggregatorV3Interface(_priceFeedAddress);
     }
 
@@ -62,6 +43,7 @@ contract MarsICO is Ownable, ERC721Holder {
 
     function buy() external payable {
         require(msg.value >= price, "MarsICO: no enouth ETH");
+        require(msg.value > 0, "MarsICO: TEST VALUE");
         marsToken.mint(msg.sender);
 
         // TODO refund rest
