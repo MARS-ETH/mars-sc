@@ -43,7 +43,6 @@ contract MarsICO is Ownable, ERC721Holder {
 
     function buy() external payable {
         require(msg.value >= price, "MarsICO: no enouth ETH");
-        require(msg.value > 0, "MarsICO: TEST VALUE");
         marsToken.mint(msg.sender);
 
         // TODO refund rest

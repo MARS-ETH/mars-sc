@@ -2,6 +2,8 @@ import { task } from "hardhat/config";
 import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-ethers";
 import { HardhatUserConfig } from "hardhat/config";
+import "hardhat-watcher";
+import "hardhat-tracer";
 
 task("accounts", "Prints the list of accounts", async (args, hre) => {
   const accounts = await hre.ethers.getSigners();
@@ -27,6 +29,16 @@ const config: HardhatUserConfig = {
         enabled: true,
         runs: 200
       }
+    }
+  },
+  watcher: {
+    compile: {
+      tasks: ["compile"],
+    },
+    test: {
+      tasks: [{ command: 'test', params: { testFiles: ['{path}'] } }],
+      files: ['./test/**/*'],
+      verbose: false
     }
   },
   mocha: {
