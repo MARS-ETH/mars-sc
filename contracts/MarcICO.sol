@@ -3,19 +3,15 @@ pragma solidity ^0.8.0;
 
 import "./MarsToken.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@chainlink/contracts/src/v0.7/interfaces/AggregatorV3Interface.sol";
 import "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
 
 contract MarsICO is Ownable, ERC721Holder {
     MarsToken public marsToken;
 
-    AggregatorV3Interface internal priceFeed;
-
     uint256 public price;
 
-    constructor(address _marsTokenAddress, address _priceFeedAddress, uint256 _price) {
+    constructor(address _marsTokenAddress, uint256 _price) {
         changeMarsTokenAddress(_marsTokenAddress);
-        changePriceFeedAddress(_priceFeedAddress);
         changePrice(_price);
     }
 
@@ -25,20 +21,9 @@ contract MarsICO is Ownable, ERC721Holder {
         require(marsToken.supportsInterface(0x80ac58cd), "MarsICO: mars token must be ERC721");
     }
 
-    function changePriceFeedAddress(address _priceFeedAddress) public onlyOwner {
-        require(_priceFeedAddress != address(0), "MarsICO: price feed address must be valid");
-        priceFeed = AggregatorV3Interface(_priceFeedAddress);
-    }
-
     function changePrice(uint256 _price) public onlyOwner {
         require(_price > 0, "MarsICO: price must be greather than 0");
         price = _price;
-    }
-
-    function getLatestPrice() public view returns (int256) {
-        (, int256 _price, , uint256 timeStamp, ) = priceFeed.latestRoundData();
-        require(timeStamp > 0, "round not complete");
-        return _price;
     }
 
     function buy() external payable {
