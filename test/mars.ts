@@ -3,7 +3,6 @@ import { Contract, ContractFactory, Signer, BigNumber } from "ethers";
 import { expect } from "chai";
 
 describe("Mars Project", function () {
-    let provider: any;
     let accounts: Signer[];
     let owner: Signer;
     let user: Signer;
@@ -12,7 +11,6 @@ describe("Mars Project", function () {
     let marsToken: Contract;
 
     before(async () => {
-        provider = ethers.getDefaultProvider();
         accounts = await ethers.getSigners();
         [owner, user] = accounts;
 
@@ -125,8 +123,17 @@ describe("Mars Project", function () {
         await expect(marsTokenAsUser.mint({ value: ethers.utils.parseUnits('100.0', 'ether') })).to.be.revertedWith('MarsToken: sale has already ended');
     });
 
+    it("Should not allowed to withdraw money as user", async () => {
+        await expect(marsToken.connect(user).withdraw()).to.be.revertedWith('Ownable: caller is not the owner');
+    });
+
     it("Should withdraw money as onwer", async () => {
-        console.log((await provider.getBalance(marsToken.address)).toString());
-        console.log((await provider.getBalance(await user.getAddress())).toString());
+        const ownerAddress = await owner.getAddress();
+        const ownerBalanceBefore = await ethers.provider.getBalance(ownerAddress);
+        
+        expect(await marsToken.withdraw());
+
+        expect(await ethers.provider.getBalance(ownerAddress)).to.gt(ownerBalanceBefore);
+        expect(await ethers.provider.getBalance(marsToken.address)).to.equal(0);
     });
 });
