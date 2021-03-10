@@ -4,8 +4,9 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-contract MarsToken is Ownable, ERC721Enumerable {
+contract MarsToken is Ownable, ReentrancyGuard, ERC721Enumerable {
 
     // Time at which the sale will start
     uint256 public constant SALE_START_TIMESTAMP = 1615001083; // TODO change
@@ -90,7 +91,7 @@ contract MarsToken is Ownable, ERC721Enumerable {
     /**
     * @dev Mints Mars plots
     */
-    function mint() external payable {
+    function mint() external payable nonReentrant {
         require(block.timestamp >= SALE_START_TIMESTAMP, "MarsToken: sale has not started");
         require(totalSupply() < MAX_NFT_SUPPLY, "MarsToken: sale has already ended");
         require(msg.value >= getPrice(), "MarsToken: no enought Ether");
