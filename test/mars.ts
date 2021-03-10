@@ -128,12 +128,8 @@ describe("Mars Project", function () {
     });
 
     it("Should withdraw money as onwer", async () => {
-        const ownerAddress = await owner.getAddress();
-        const ownerBalanceBefore = await ethers.provider.getBalance(ownerAddress);
-        
-        expect(await marsToken.withdraw());
-
-        expect(await ethers.provider.getBalance(ownerAddress)).to.gt(ownerBalanceBefore);
+        const marsTokenBalance = await ethers.provider.getBalance(marsToken.address);
+        await expect(await marsToken.withdraw()).to.changeEtherBalance(owner, marsTokenBalance);
         expect(await ethers.provider.getBalance(marsToken.address)).to.equal(0);
     });
 });
