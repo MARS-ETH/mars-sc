@@ -4,6 +4,7 @@ import "@nomiclabs/hardhat-ethers";
 import { HardhatUserConfig } from "hardhat/config";
 import "hardhat-watcher";
 import "hardhat-tracer";
+import "hardhat-typechain";
 
 task("accounts", "Prints the list of accounts", async (args, hre) => {
   const accounts = await hre.ethers.getSigners();

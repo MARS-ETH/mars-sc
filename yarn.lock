@@ -3704,6 +3704,11 @@
   dependencies:
     "ethers" "^5.0.24"
 
+"hardhat-typechain@^0.3.5":
+  "integrity" "sha512-w9lm8sxqTJACY+V7vijiH+NkPExnmtiQEjsV9JKD1KgMdVk2q8y+RhvU/c4B7+7b1+HylRUCxpOIvFuB3rE4+w=="
+  "resolved" "https://registry.npmjs.org/hardhat-typechain/-/hardhat-typechain-0.3.5.tgz"
+  "version" "0.3.5"
+
 "hardhat-watcher@^2.1.1":
   "integrity" "sha512-zilmvxAYD34IofBrwOliQn4z92UiDmt2c949DW4Gokf0vS0qk4YTfVCi/LmUBICThGygNANE3WfnRTpjCJGtDA=="
   "resolved" "https://registry.npmjs.org/hardhat-watcher/-/hardhat-watcher-2.1.1.tgz"
@@ -3711,7 +3716,7 @@
   dependencies:
     "chokidar" "^3.4.3"
 
-"hardhat@^2.0.0", "hardhat@^2.1.1":
+"hardhat@^2.0.0", "hardhat@^2.0.10", "hardhat@^2.1.1":
   "integrity" "sha512-55XMqB5QoeRg3m56rBg0NQgU//GPqOC9t4RbRSU3pdBJGHGXFTUh8fjTPxnWJNu9r72Zju++syGcCkPGwftyvw=="
   "resolved" "https://registry.npmjs.org/hardhat/-/hardhat-2.1.1.tgz"
   "version" "2.1.1"
@@ -6867,7 +6872,7 @@
     "ts-essentials" "^6.0.3"
     "ts-generator" "^0.1.1"
 
-"typechain@^4.0.0", "typechain@^4.0.3":
+"typechain@^4.0.0", "typechain@^4.0.1", "typechain@^4.0.3":
   "integrity" "sha512-tmoHQeXZWHxIdeLK+i6dU0CU0vOd9Cndr3jFTZIMzak5/YpFZ8XoiYpTZcngygGBqZo+Z1EUmttLbW9KkFZLgQ=="
   "resolved" "https://registry.npmjs.org/typechain/-/typechain-4.0.3.tgz"
   "version" "4.0.3"
